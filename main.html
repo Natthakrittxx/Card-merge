@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>  Memory Match</title>
+    <title>Fotona Match</title>
     <style>
-        /* --- 1. SETTINGS & RESET --- */
+        /* --- 1. FOTONA CLEAN RED & WHITE THEME --- */
         :root {
-            --bg-color: #000000;
-            --text-color: #ffffff;
-            --accent-red: #ff0000;
-            --glass-bg: rgba(220, 20, 60, 0.15); 
-            --glass-border: rgba(255, 50, 50, 0.4);
-            --card-front-text: rgba(255, 255, 255, 0.9);
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --accent-red: #E30613; /* Specific Fotona Red */
+            --card-bg: #ffffff;
+            --card-border: #e0e0e0;
+            --success-green: #28a745;
         }
 
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
             background-color: var(--bg-color);
             display: flex;
             flex-direction: column;
@@ -25,71 +25,65 @@
             min-height: 100vh;
             margin: 0;
             color: var(--text-color);
-            overflow: hidden;
             user-select: none;
+            /* Subtle, clean background pattern */
+            background-image: radial-gradient(circle at center, #f8f8f8 0%, #ffffff 100%);
         }
 
-        /* --- 2. AMBIENT BACKGROUND BLOBS --- */
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: -1;
-            opacity: 0.5;
-            animation: float 10s infinite alternate;
-        }
-        .blob-1 { top: 10%; left: 10%; width: 300px; height: 300px; background: #500000; }
-        .blob-2 { bottom: 20%; right: 10%; width: 250px; height: 250px; background: #a00000; }
-        .blob-3 { top: 40%; left: 40%; width: 200px; height: 200px; background: #800000; opacity: 0.3;}
-
-        @keyframes float {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(20px, 40px); }
-        }
-
-        /* --- 3. TYPOGRAPHY & HUD --- */
+        /* --- 2. HUD --- */
         .hud {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            z-index: 10;
         }
 
         h1 {
-            font-weight: 200;
-            letter-spacing: 4px;
+            font-weight: 500;
+            letter-spacing: 1px;
             text-transform: uppercase;
             font-size: 1.8rem;
-            margin: 0 0 10px 0;
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+            margin: 0 0 15px 0;
+            color: var(--text-color);
         }
 
         .timer-container {
             font-size: 1.2rem;
-            font-weight: 700;
+            font-weight: 600;
             color: var(--accent-red);
-            padding: 8px 20px;
-            border-radius: 30px;
-            background: rgba(255, 0, 0, 0.1);
-            border: 1px solid var(--glass-border);
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            padding: 10px 25px;
+            background: #ffffff;
+            border: 2px solid var(--accent-red);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 10px rgba(227, 6, 19, 0.1);
         }
 
-        /* --- 4. GRID LAYOUT --- */
+        .timer-icon {
+            width: 12px;
+            height: 12px;
+            background-color: var(--accent-red);
+            border-radius: 50%;
+        }
+
+        /* --- 3. GRID LAYOUT --- */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(3, 1fr); /* 3 Rows for 12 cards */
-            gap: 12px;
-            max-width: 600px; /* Constrained width for better image visuals */
+            grid-template-rows: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 650px;
             width: 95%;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
-        /* --- 5. GLASS CARD STYLES --- */
+        /* --- 4. CLEAN CARD STYLES --- */
         .card-container {
             width: 100%;
-            aspect-ratio: 1/1; /* Square cards for memory game */
+            aspect-ratio: 1/1;
             perspective: 1000px;
             cursor: pointer;
         }
@@ -98,7 +92,8 @@
             position: relative;
             width: 100%;
             height: 100%;
-            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Clean, precise flip animation */
+            transition: transform 0.5s ease-in-out;
             transform-style: preserve-3d;
         }
 
@@ -106,9 +101,14 @@
             transform: rotateY(180deg);
         }
         
-        /* Disabled state (matched or waiting) */
         .card-container.disabled {
             pointer-events: none;
+        }
+        
+        /* Matched state - clean green border */
+        .card-container.matched .card-back {
+            border-color: var(--success-green);
+            box-shadow: 0 0 15px rgba(40, 167, 69, 0.3);
         }
 
         .card-front, .card-back {
@@ -117,85 +117,87 @@
             height: 100%;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            border-radius: 12px;
+            /* Slightly rounded corners for a modern, professional look */
+            border-radius: 6px; 
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden; /* Important for images */
-            
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 8px 32px 0 rgba(255, 0, 0, 0.15);
+            overflow: hidden;
+            background: var(--card-bg);
+            /* Subtle border for definition */
+            border: 1px solid var(--card-border);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
         }
 
         .card-front {
-            color: var(--card-front-text);
-            font-size: 2rem;
-            font-weight: 100;
-            text-shadow: 0 0 10px rgba(237, 5, 5, 0.9);
+            background: #ffffff;
         }
-        .card-front::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 50, 50, 0.3) 0%, rgba(0,0,0,0) 100%);
-            pointer-events: none;
+        
+        /* Red Fotona Triangle Logo */
+        .logo-img {
+         width: 50%; /* Adjust size as needed */
+            height: auto;
+            object-fit: contain;
         }
 
         .card-back {
             transform: rotateY(180deg);
-            background: #000;
+            /* Bold red border on reveal */
             border: 2px solid var(--accent-red);
+            padding: 5px; /* Inner padding for the image */
         }
 
         .card-img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ensures image covers the card */
-            opacity: 0.9;
+            object-fit: cover;
+            border-radius: 4px;
         }
 
-        /* --- 6. UI CONTROLS --- */
+        /* Hover effect for interactivity */
+        .card-container:not(.flipped):not(.disabled):hover .card-front {
+            border-color: var(--accent-red);
+            box-shadow: 0 4px 12px rgba(227, 6, 19, 0.15);
+        }
+
+        /* --- 5. RESULT UI --- */
         #result-area {
             height: 80px; 
             text-align: center;
+            z-index: 20;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 10;
         }
 
         #result-message {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
             text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(253, 0, 0, 0.8);
+            color: var(--text-color);
         }
 
         .reset-btn {
-            margin-top: 15px;
-            padding: 12px 30px;
-            background: rgba(255, 0, 0, 0.2);
-            backdrop-filter: blur(5px);
-            border: 1px solid var(--accent-red);
+            padding: 12px 35px;
+            background: var(--accent-red);
             color: white;
+            border: none;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            border-radius: 50px;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 4px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: none; /* Hidden by default */
+            transition: all 0.2s ease;
+            display: none;
         }
         .reset-btn:hover {
-            background: var(--accent-red);
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+            background: #c2000b; /* Slightly darker red on hover */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         /* Responsive */
@@ -209,13 +211,12 @@
 </head>
 <body>
 
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-
     <div class="hud">
-        <h1>Memory Protocol</h1>
-        <div class="timer-container" id="timer">00:45</div>
+        <h1>Fotona Matching Game</h1>
+        <div class="timer-container">
+            <div class="timer-icon"></div>
+            <span id="timer">00:60</span>
+        </div>
     </div>
 
     <div class="card-grid" id="grid">
@@ -223,25 +224,24 @@
 
     <div id="result-area">
         <div id="result-message"></div>
-        <button class="reset-btn" onclick="resetGame()">Replay Mission</button>
+        <button class="reset-btn" onclick="resetGame()">Play Again</button>
     </div>
 
     <script>
         // --- CONFIGURATION ---
-        const GAME_DURATION = 60; // Time in seconds
+        const GAME_DURATION = 60; 
         
-        // PLACEHOLDER IMAGES - REPLACE THESE URLS WITH YOUR OWN IMAGES LATER
-        // We only need 6 images (for 6 pairs)
+        // 6 Images for 12 Cards
         const imageSources = [
-            'asset/1.jpg',
-            'https://picsum.photos/id/238/200/200', // City
-            'https://picsum.photos/id/239/200/200', // Dandelion
-            'https://picsum.photos/id/240/200/200', // Stairs
-            'https://picsum.photos/id/241/200/200', // Person
-            'https://picsum.photos/id/242/200/200'  // Machine
+            'asset/1.jpg', //skypulse 
+            'asset/2.png', //Lasotronix diode 
+            'asset/3.png', //CO2
+            'https://picsum.photos/id/96/300/300', 
+            'https://picsum.photos/id/160/300/300', 
+            'https://picsum.photos/id/180/300/300'  
         ];
 
-        // --- GAME STATE ---
+        // --- GAME VARIABLES ---
         let cardsData = [];
         let hasFlippedCard = false;
         let lockBoard = false;
@@ -255,8 +255,9 @@
         const message = document.getElementById('result-message');
         const resetBtn = document.querySelector('.reset-btn');
         const timerDisplay = document.getElementById('timer');
+        const timerIcon = document.querySelector('.timer-icon');
 
-        // --- INIT ---
+        // --- INITIALIZATION ---
         function initGame() {
             grid.innerHTML = '';
             message.textContent = '';
@@ -271,27 +272,26 @@
             firstCard = null;
             secondCard = null;
 
+            timerDisplay.style.color = 'var(--accent-red)';
+            timerIcon.style.backgroundColor = 'var(--accent-red)';
+
             updateTimerDisplay();
             startTimer();
 
-            // 1. Create Pairs
             const pairs = [...imageSources, ...imageSources];
-            
-            // 2. Shuffle
             pairs.sort(() => 0.5 - Math.random());
 
-            // 3. Generate HTML
             pairs.forEach((imgSrc) => {
                 const card = document.createElement('div');
                 card.classList.add('card-container');
-                // Store the image src as a dataset ID to compare matches
                 card.dataset.name = imgSrc; 
 
                 card.innerHTML = `
                     <div class="card-inner">
-                        <div class="card-front">?</div>
+                        <div class="card-front">
+                            <img src="asset/Logo.png" class="logo-img" alt="Fotona Logo">                        </div>
                         <div class="card-back">
-                            <img src="${imgSrc}" class="card-img" alt="Memory Card">
+                            <img src="${imgSrc}" class="card-img" alt="Memory Asset">
                         </div>
                     </div>
                 `;
@@ -301,9 +301,8 @@
             });
         }
 
-        // --- GAME LOGIC ---
+        // --- CORE LOGIC ---
         function flipCard() {
-            // Prevent interaction if locked, game over, or clicking same card
             if (!isGameActive) return;
             if (lockBoard) return;
             if (this === firstCard) return;
@@ -311,31 +310,26 @@
             this.classList.add('flipped');
 
             if (!hasFlippedCard) {
-                // First click
                 hasFlippedCard = true;
                 firstCard = this;
                 return;
             }
 
-            // Second click
             secondCard = this;
             checkForMatch();
         }
 
         function checkForMatch() {
-            // Check if data-name matches
             let isMatch = firstCard.dataset.name === secondCard.dataset.name;
             isMatch ? disableCards() : unflipCards();
         }
 
         function disableCards() {
-            // It's a match
             firstCard.removeEventListener('click', flipCard);
             secondCard.removeEventListener('click', flipCard);
-
-            // Visual indicator for matched cards (optional)
-            // firstCard.style.opacity = '0.5';
-            // secondCard.style.opacity = '0.5';
+            
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
 
             resetBoard();
             matchedPairs++;
@@ -347,7 +341,6 @@
 
         function unflipCards() {
             lockBoard = true;
-            // Wait a bit so user can see the card
             setTimeout(() => {
                 firstCard.classList.remove('flipped');
                 secondCard.classList.remove('flipped');
@@ -360,7 +353,7 @@
             [firstCard, secondCard] = [null, null];
         }
 
-        // --- TIMER & STATES ---
+        // --- TIMER ---
         function startTimer() {
             clearInterval(timerInterval);
             timerInterval = setInterval(() => {
@@ -379,72 +372,67 @@
             const minutes = Math.floor(timeLeft / 60);
             const seconds = timeLeft % 60;
             timerDisplay.textContent = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-            
-            // Turn timer redder/brighter when low
-            if (timeLeft < 10) {
-                timerDisplay.style.backgroundColor = 'rgba(255, 0, 0, 0.4)';
-            } else {
-                timerDisplay.style.backgroundColor = 'rgba(255, 0, 0, 0.1)';
-            }
         }
 
+        // --- END STATES ---
         function gameWin() {
             isGameActive = false;
             clearInterval(timerInterval);
-            message.textContent = 'CONGRATULATIONS!';
-            message.style.color = '#fff'; // White text for victory
+            message.textContent = 'Congratulation';
+            message.style.color = 'var(--accent-red)';
             resetBtn.style.display = 'block';
-            celebrate(); // Trigger confetti
+            celebrate(); 
         }
 
         function gameLost() {
             isGameActive = false;
             clearInterval(timerInterval);
-            lockBoard = true; // Prevent further clicks
-            message.textContent = 'SYSTEM FAILURE (TIME OUT)';
-            message.style.color = 'var(--accent-red)';
+            lockBoard = true;
+            message.textContent = 'Calibration Failed';
+            message.style.color = 'var(--text-color)';
+            timerIcon.style.backgroundColor = '#999'; // Gray out timer icon
+            timerDisplay.style.color = '#999';
             resetBtn.style.display = 'block';
-            
-            // Optional: Flip all cards to show what they were
-            const allCards = document.querySelectorAll('.card-container');
-            allCards.forEach(card => card.classList.add('flipped'));
+            document.querySelectorAll('.card-container').forEach(card => card.classList.add('flipped'));
         }
 
         function resetGame() {
             initGame();
         }
 
-        // --- CONFETTI (Red/White/Black) ---
+        // --- RED & WHITE CONFETTI ---
         function celebrate() {
-            const colors = ['#ff0000', '#ffffff', '#000000'];
+            const colors = ['#E30613', '#ffffff', '#E30613'];
+            
             for(let i=0; i<100; i++) {
                 const confetti = document.createElement('div');
                 confetti.style.position = 'fixed';
                 confetti.style.top = '50%';
                 confetti.style.left = '50%';
-                confetti.style.width = Math.random() * 10 + 5 + 'px';
-                confetti.style.height = Math.random() * 10 + 5 + 'px';
+                confetti.style.width = Math.random() * 8 + 4 + 'px';
+                confetti.style.height = Math.random() * 8 + 4 + 'px';
                 confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 confetti.style.zIndex = '9999';
-                
+                // Simple squares for a cleaner look
+                confetti.style.borderRadius = '0';
+
                 document.body.appendChild(confetti);
 
                 const angle = Math.random() * Math.PI * 2;
-                const velocity = 4 + Math.random() * 8; 
-                const tx = Math.cos(angle) * velocity * 80;
-                const ty = Math.sin(angle) * velocity * 80;
+                const velocity = 3 + Math.random() * 7; 
+                const tx = Math.cos(angle) * velocity * 70;
+                const ty = Math.sin(angle) * velocity * 70;
 
                 confetti.animate([
                     { transform: 'translate(0,0) rotate(0deg) scale(1)', opacity: 1 },
-                    { transform: `translate(${tx}px, ${ty}px) rotate(${Math.random()*1000}deg) scale(0)`, opacity: 0 }
+                    { transform: `translate(${tx}px, ${ty}px) rotate(${Math.random()*360}deg) scale(0)`, opacity: 0 }
                 ], {
-                    duration: 1500,
-                    easing: 'cubic-bezier(0.165, 0.84, 0.44, 1)'
+                    duration: 1200,
+                    easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)'
                 }).onfinish = () => confetti.remove();
             }
         }
 
-        // Start the game immediately on load
         initGame();
 
     </script>
