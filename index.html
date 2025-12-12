@@ -181,7 +181,7 @@
             color: var(--text-color);
         }
 
-        .reset-btn {
+        .reset-btn, .start-btn {
             padding: 12px 35px;
             background: var(--accent-red);
             color: white;
@@ -193,9 +193,11 @@
             border-radius: 4px;
             cursor: pointer;
             transition: all 0.2s ease;
+        }
+        .reset-btn {
             display: none;
         }
-        .reset-btn:hover {
+        .reset-btn:hover, .start-btn:hover {
             background: #c2000b; /* Slightly darker red on hover */
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
@@ -223,13 +225,14 @@
         </div>
 
     <div id="result-area">
+        <button class="start-btn" onclick="startGame()">Start</button>
         <div id="result-message"></div>
         <button class="reset-btn" onclick="resetGame()">Play Again</button>
     </div>
 
     <script>
         // --- CONFIGURATION ---
-        const GAME_DURATION = 25; 
+        const GAME_DURATION = 30; 
         
         // 6 Images for 12 Cards
         const imageSources = [
@@ -253,6 +256,7 @@
         const grid = document.getElementById('grid');
         const message = document.getElementById('result-message');
         const resetBtn = document.querySelector('.reset-btn');
+        const startBtn = document.querySelector('.start-btn');
         const timerDisplay = document.getElementById('timer');
         const timerIcon = document.querySelector('.timer-icon');
 
@@ -261,11 +265,12 @@
             grid.innerHTML = '';
             message.textContent = '';
             resetBtn.style.display = 'none';
+            startBtn.style.display = 'block';
             message.style.color = 'var(--text-color)';
-            
+
             matchedPairs = 0;
             timeLeft = GAME_DURATION;
-            isGameActive = true;
+            isGameActive = false;
             hasFlippedCard = false;
             lockBoard = false;
             firstCard = null;
@@ -275,7 +280,6 @@
             timerIcon.style.backgroundColor = 'var(--accent-red)';
 
             updateTimerDisplay();
-            startTimer();
 
             const pairs = [...imageSources, ...imageSources];
             pairs.sort(() => 0.5 - Math.random());
@@ -283,7 +287,7 @@
             pairs.forEach((imgSrc) => {
                 const card = document.createElement('div');
                 card.classList.add('card-container');
-                card.dataset.name = imgSrc; 
+                card.dataset.name = imgSrc;
 
                 card.innerHTML = `
                     <div class="card-inner">
@@ -294,10 +298,17 @@
                         </div>
                     </div>
                 `;
-                
+
                 card.addEventListener('click', flipCard);
                 grid.appendChild(card);
             });
+        }
+
+        // --- START GAME ---
+        function startGame() {
+            startBtn.style.display = 'none';
+            isGameActive = true;
+            startTimer();
         }
 
         // --- CORE LOGIC ---
