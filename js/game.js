@@ -195,6 +195,22 @@ function resetGame() {
     initGame();
 }
 
+// --- MENU TOGGLE FUNCTION ---
+function toggleMenu() {
+    const drawer = document.getElementById("navDrawer");
+    const overlay = document.getElementById("menuOverlay");
+    const icon = document.querySelector(".burger-icon");
+
+    // Toggle the 'open' class on the sidebar
+    drawer.classList.toggle("open");
+    
+    // Toggle the 'show' class on the background overlay
+    overlay.classList.toggle("show");
+    
+    // (Optional) Animate the burger icon into an X
+    icon.classList.toggle("change");
+}
+
 // --- RED & WHITE CONFETTI ---
 function celebrate() {
     const colors = ['#E30613', '#ffffff', '#E30613'];

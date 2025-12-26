@@ -8,6 +8,25 @@
 </head>
 <body>
 
+    <div class="burger-menu-container">
+    <div class="burger-icon" onclick="toggleMenu()">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </div>
+
+    <div class="nav-drawer" id="navDrawer">
+        <div class="drawer-header">
+            <span class="close-btn" onclick="toggleMenu()">&times;</span>
+        </div>
+        <a href="index.html" class="drawer-link active">Home</a>
+        <a href="game1.html" class="drawer-link">Level 1</a>
+        <a href="game2.html" class="drawer-link">Level 2</a>
+    </div>
+    
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+    </div>
+
     <div class="menu-container">
         <div class="menu-header">
             <h1>Fotona Game</h1>
@@ -32,6 +51,7 @@
 
         </div>
     </div>
+    <script src="js/game.js"></script>
 
 </body>
 </html>

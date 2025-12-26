@@ -7,11 +7,25 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="nav-links" style="margin-top: 20px;">
-        <a href="index.html" class="nav-btn">Home</a>
-        <a href="game1.html" class="nav-btn active">Game 1</a>
-        <a href="game2.html" class="nav-btn">Game 2</a>
+    
+    <div class="burger-menu-container">
+    <div class="burger-icon" onclick="toggleMenu()">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
     </div>
+
+    <div class="nav-drawer" id="navDrawer">
+    <div class="drawer-header">
+        <span class="close-btn" onclick="toggleMenu()">&times;</span>
+    </div>
+    <a href="index.html" class="drawer-link">Home</a>
+    <a href="game1.html" class="drawer-link active">Level 1</a>
+    <a href="game2.html" class="drawer-link">Level 2</a>
+</div>
+    
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+</div>
 
     <div class="hud">
         <h1>Fotona Matching Game</h1>

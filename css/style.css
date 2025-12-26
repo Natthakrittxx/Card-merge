@@ -476,6 +476,122 @@ h1 {
     }
 }
 
+/* --- BURGER MENU STYLES --- */
+
+/* 1. The Burger Icon (Fixed Top Left) */
+.burger-icon {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 200; /* Above everything */
+    cursor: pointer;
+    background: white;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.burger-icon:hover {
+    box-shadow: 0 4px 8px rgba(227, 6, 19, 0.2);
+}
+
+/* The 3 bars inside the icon */
+.bar1, .bar2, .bar3 {
+    width: 25px;
+    height: 3px;
+    background-color: var(--accent-red);
+    margin: 5px 0;
+    transition: 0.4s;
+}
+
+/* Animation to turn bars into X when active (Optional styling) */
+.change .bar1 { transform: translate(0, 8px) rotate(-45deg); }
+.change .bar2 { opacity: 0; }
+.change .bar3 { transform: translate(0, -8px) rotate(45deg); }
+
+
+/* 2. The Slide-out Drawer */
+.nav-drawer {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 201; /* Above the icon */
+    top: 0;
+    left: -250px; /* Hidden off-screen by default */
+    background-color: #ffffff;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    overflow-x: hidden;
+    transition: 0.4s ease; /* Smooth slide */
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Class added by JS to show the menu */
+.nav-drawer.open {
+    left: 0;
+}
+
+
+/* 3. Links inside the Drawer */
+.drawer-link {
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    display: block;
+    transition: 0.2s;
+    border-left: 4px solid transparent;
+}
+
+.drawer-link:hover {
+    background-color: #f8f8f8;
+    color: var(--accent-red);
+    border-left: 4px solid var(--accent-red);
+}
+
+/* Close 'X' button inside drawer */
+.drawer-header {
+    text-align: right;
+    padding-right: 20px;
+    margin-bottom: 20px;
+}
+.close-btn {
+    font-size: 30px;
+    cursor: pointer;
+    color: #888;
+}
+.close-btn:hover {
+    color: var(--accent-red);
+}
+
+
+/* 4. Dark Overlay Background */
+.menu-overlay {
+    position: fixed;
+    display: none; /* Hidden by default */
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.5); /* Semi-transparent black */
+    z-index: 199; /* Below drawer, above game */
+}
+
+/* Show overlay when menu is open */
+.menu-overlay.show {
+    display: block;
+}
+
+/* Active State for Sidebar Links */
+.drawer-link.active {
+    background-color: #fff5f5; /* Light red background */
+    color: var(--accent-red);   /* Red Text */
+    border-left: 4px solid var(--accent-red); /* Red Border on left */
+    font-weight: 700;           /* Bold Text */
+}
+
 /* --- MENU / HOME PAGE STYLES --- */
 .menu-container {
     max-width: 800px;
