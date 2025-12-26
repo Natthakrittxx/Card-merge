@@ -3,42 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fotona Match</title>
+    <title>Fotona Games - Home</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <div class="hud">
-        <h1>Fotona Matching Game</h1>
-        <div class="controls-row">
-            <select id="duration-select" class="duration-select">
-                <option value="20" selected>20 Seconds</option>
-                <option value="25">25 Seconds</option>
-                <option value="30">30 Seconds</option>
-                <option value="35">35 Seconds</option>
-                <option value="40">40 Seconds</option>
-                <option value="45">45 Seconds</option>
-                <option value="50">50 Seconds</option>
-                <option value="55">55 Seconds</option>
-                <option value="60">60 Seconds</option>
-            </select>
+    <div class="menu-container">
+        <div class="menu-header">
+            <h1>Fotona Game</h1>
+            <p>Select a game type to begin</p>
+        </div>
 
-            <div class="timer-container">
-                <div class="timer-icon"></div>
-                <span id="timer">00:20</span>
-            </div>
+        <div class="menu-grid">
+            
+            <a href="game1.html" class="menu-card">
+                <div class="menu-icon">I</div>
+                <h2>Machine Matching</h2>
+                <p>Standard grid. Test your memory speed.</p>
+                <span class="play-btn">Play Now &rarr;</span>
+            </a>
+
+            <a href="game2.html" class="menu-card">
+                <div class="menu-icon">II</div>
+                <h2>What is this</h2>
+                <p>Advanced layout. For true experts.</p>
+                <span class="play-btn">Play Now &rarr;</span>
+            </a>
+
         </div>
     </div>
 
-    <div class="card-grid" id="grid">
-    </div>
-
-    <div id="result-area">
-        <button class="start-btn" onclick="startGame()">Start</button>
-        <div id="result-message"></div>
-        <button class="reset-btn" onclick="resetGame()">Play Again</button>
-    </div>
-
-    <script src="js/game.js"></script>
 </body>
 </html>

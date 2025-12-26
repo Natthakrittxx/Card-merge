@@ -475,3 +475,106 @@ h1 {
         gap: 10px;
     }
 }
+
+/* --- MENU / HOME PAGE STYLES --- */
+.menu-container {
+    max-width: 800px;
+    width: 90%;
+    text-align: center;
+    animation: fadeIn 0.8s ease;
+}
+
+.menu-header {
+    margin-bottom: 50px;
+}
+
+.menu-header h1 {
+    font-size: 2.5rem;
+    color: var(--accent-red);
+    margin-bottom: 10px;
+}
+
+.menu-header p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns side by side */
+    gap: 30px;
+}
+
+.menu-card {
+    background: white;
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 40px 20px;
+    text-decoration: none; /* Remove underline from links */
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover Effect: Lift up and show red border */
+.menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(227, 6, 19, 0.15);
+    border-color: var(--accent-red);
+}
+
+.menu-icon {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-red);
+    background: #fff5f5;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.menu-card h2 {
+    margin: 0 0 10px 0;
+    font-size: 1.5rem;
+}
+
+.menu-card p {
+    color: #777;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.play-btn {
+    font-weight: 600;
+    color: var(--accent-red);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+/* Specific Style for Pro Card */
+.menu-card.pro {
+    border-top: 4px solid var(--accent-red);
+}
+
+/* Simple Fade In Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    .menu-grid {
+        grid-template-columns: 1fr; /* Stack vertically on phone */
+    }
+}
