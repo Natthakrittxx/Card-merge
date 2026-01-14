@@ -1,5 +1,3 @@
-// --- CONFIGURATION ---
-// Note: Ensure your images are in a folder named 'assets' next to your index.html
 const imageSources = [
     'assets/1.jpg', 
     'assets/2.png', 
@@ -9,7 +7,6 @@ const imageSources = [
     'assets/6.jpeg' 
 ];
 
-// --- GAME VARIABLES ---
 let cardsData = [];
 let hasFlippedCard = false;
 let lockBoard = false;
@@ -27,7 +24,6 @@ const timerDisplay = document.getElementById('timer');
 const timerIcon = document.querySelector('.timer-icon');
 const durationSelect = document.getElementById('duration-select');
 
-// --- DYNAMIC DURATION LISTENER ---
 // When user changes dropdown, update display immediately if game hasn't started
 durationSelect.addEventListener('change', function() {
     if (!isGameActive) {
@@ -36,7 +32,6 @@ durationSelect.addEventListener('change', function() {
     }
 });
 
-// --- INITIALIZATION ---
 function initGame() {
     grid.innerHTML = '';
     message.textContent = '';
@@ -69,7 +64,7 @@ function initGame() {
         card.classList.add('card-container');
         card.dataset.name = imgSrc;
 
-        // Note: The logo path is also updated to 'assets/Logo.png'
+        //The logo on the card
         card.innerHTML = `
             <div class="card-inner">
                 <div class="card-front">
@@ -86,7 +81,7 @@ function initGame() {
     });
 }
 
-// --- START GAME ---
+// Start game
 function startGame() {
     startBtn.style.display = 'none';
     durationSelect.disabled = true; // Lock selection during game
@@ -94,7 +89,6 @@ function startGame() {
     startTimer();
 }
 
-// --- CORE LOGIC ---
 function flipCard() {
     if (!isGameActive) return;
     if (lockBoard) return;
@@ -132,13 +126,14 @@ function disableCards() {
     }
 }
 
+//adjust flip card speed after fail to matched here
 function unflipCards() {
     lockBoard = true;
     setTimeout(() => {
         firstCard.classList.remove('flipped');
         secondCard.classList.remove('flipped');
         resetBoard();
-    }, 700);
+    }, 500);
 }
 
 function resetBoard() {
@@ -146,7 +141,6 @@ function resetBoard() {
     [firstCard, secondCard] = [null, null];
 }
 
-// --- TIMER ---
 function startTimer() {
     clearInterval(timerInterval);
     timerInterval = setInterval(() => {
@@ -167,7 +161,6 @@ function updateTimerDisplay() {
     timerDisplay.textContent = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
 
-// --- END STATES ---
 function gameWin() {
     isGameActive = false;
     clearInterval(timerInterval);
@@ -195,7 +188,7 @@ function resetGame() {
     initGame();
 }
 
-// --- MENU TOGGLE FUNCTION ---
+// TOGGLE FUNCTION
 function toggleMenu() {
     const drawer = document.getElementById("navDrawer");
     const overlay = document.getElementById("menuOverlay");
@@ -207,11 +200,11 @@ function toggleMenu() {
     // Toggle the 'show' class on the background overlay
     overlay.classList.toggle("show");
     
-    // (Optional) Animate the burger icon into an X
+    // Animate the burger icon into an X
     icon.classList.toggle("change");
 }
 
-// --- RED & WHITE CONFETTI ---
+// RED & WHITE CONFETTI theme
 function celebrate() {
     const colors = ['#E30613', '#ffffff', '#E30613'];
     
