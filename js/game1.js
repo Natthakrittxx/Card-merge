@@ -36,7 +36,7 @@ function initGame() {
     grid.innerHTML = '';
     message.textContent = '';
     resetBtn.style.display = 'none';
-    startBtn.style.display = 'block';
+    startBtn.style.display = 'none';
     message.style.color = 'var(--text-color)';
     durationSelect.disabled = false; // Enable selection before start
 
@@ -90,9 +90,13 @@ function startGame() {
 }
 
 function flipCard() {
-    if (!isGameActive) return;
     if (lockBoard) return;
     if (this === firstCard) return;
+
+    // Start game on first card flip
+    if (!isGameActive) {
+        startGame();
+    }
 
     this.classList.add('flipped');
 
