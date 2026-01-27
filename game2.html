@@ -1,16 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Random Game</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Matcher</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="nav-links" style="margin-top: 20px;">
-        <a href="index.html" class="nav-btn">Home</a>
-        <a href="game1.html" class="nav-btn active">Game 1</a>
-        <a href="game2.html" class="nav-btn">Game 2</a>
+
+    <div class="burger-menu-container">
+    <div class="burger-icon" onclick="toggleMenu()">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
     </div>
 
-<h1>Hello World, How are you</h1>
+    <div class="nav-drawer" id="navDrawer">
+    <div class="drawer-header">
+        <span class="close-btn" onclick="toggleMenu()">&times;</span>
+    </div>
+    <a href="index.html" class="drawer-link">Home</a>
+    <a href="game1.html" class="drawer-link">Game 1</a>
+    <a href="game2.html" class="drawer-link active">Game 2</a>
+</div>
 
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+</div>
+
+    <div class="game-container">
+        <div class="header-info" id="headerInfo">
+            <span>Score: <span id="score">0</span></span>
+            <span>Question: <span id="qCount">1</span> / 10</span>
+        </div>
+
+        <div class="game-section" id="gameSection">
+            <div class="question-section">
+                <div class="symptom-label">PATIENT COMPLAINT:</div>
+                <div class="symptom-text"><span id="symptom">Loading...</span></div>
+            </div>
+
+            <div class="button-grid">
+                <button class="answer-btn" onclick="handleAnswer(0)"></button>
+                <button class="answer-btn" onclick="handleAnswer(1)"></button>
+                <button class="answer-btn" onclick="handleAnswer(2)"></button>
+                <button class="answer-btn" onclick="handleAnswer(3)"></button>
+            </div>
+
+            <button class="restart-btn game-restart" onclick="resetGame()">Restart</button>
+        </div>
+
+        <div class="game-over-section" id="gameOverSection">
+            <div class="game-over-title">SESSION COMPLETE</div>
+            <div class="symptom-label">Your Final Score</div>
+            <div class="final-score"><span id="finalScore">0</span> / 10</div>
+            <button class="restart-btn" onclick="resetGame()">Play Again</button>
+        </div>
+    </div>
+
+    <script src="game2.js"></script>
+    <script>
+        function toggleMenu() {
+            document.getElementById('navDrawer').classList.toggle('open');
+            document.getElementById('menuOverlay').classList.toggle('show');
+            document.querySelector('.burger-icon').classList.toggle('change');
+        }
+    </script>
 </body>
 </html>

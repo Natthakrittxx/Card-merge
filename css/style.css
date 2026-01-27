@@ -18,11 +18,9 @@ body {
     margin: 0;
     color: var(--text-color);
     user-select: none;
-    /* Subtle, clean background pattern */
     background-image: radial-gradient(circle at center, #f8f8f8 0%, #ffffff 100%);
 }
 
-/* --- 2. HUD & CONTROLS --- */
 .hud {
     display: flex;
     flex-direction: column;
@@ -99,7 +97,7 @@ h1 {
     box-shadow: 0 0 0 3px rgba(227, 6, 19, 0.2);
 }
 
-/* --- 3. GRID LAYOUT --- */
+/* 3. GRID LAYOUT */
 .card-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -691,5 +689,207 @@ h1 {
 @media (max-width: 600px) {
     .menu-grid {
         grid-template-columns: 1fr; /* Stack vertically on phone */
+    }
+}
+
+/* --- GAME 2 (SYMPTOM MATCHER) STYLES --- */
+
+/* Main container */
+.game-container {
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Header with score and question count */
+.header-info {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    padding: 15px 20px;
+    background: white;
+    border: 2px solid var(--accent-red);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(227, 6, 19, 0.1);
+    z-index: 100;
+}
+
+/* Question section */
+.question-section {
+    background: white;
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 30px 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.symptom-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-red);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.symptom-text {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-color);
+    line-height: 1.4;
+}
+
+/* Answer buttons grid */
+.button-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.answer-btn {
+    padding: 20px 15px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-color);
+    background: white;
+    border: 2px solid var(--card-border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 70px;
+}
+
+.answer-btn:hover:not(:disabled) {
+    border-color: var(--accent-red);
+    background: #fff5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(227, 6, 19, 0.15);
+}
+
+.answer-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.answer-btn.correct {
+    background-color: #d4edda;
+    border-color: #28a745;
+    color: #155724;
+}
+
+.answer-btn.wrong {
+    background-color: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+}
+
+/* Restart button during gameplay */
+.restart-btn.game-restart {
+    display: block;
+    margin: 30px auto 0 auto;
+    padding: 12px 35px;
+    background: var(--accent-red);
+    color: white;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.restart-btn.game-restart:hover {
+    background: #c2000b;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Game over section */
+.game-over-section {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: white;
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.game-over-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--accent-red);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.final-score {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin: 10px 0 30px 0;
+}
+
+.game-over-section .restart-btn {
+    display: block;
+    padding: 15px 40px;
+    background: var(--accent-red);
+    color: white;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.game-over-section .restart-btn:hover {
+    background: #c2000b;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Utility class for hiding elements */
+.hidden {
+    display: none !important;
+}
+
+/* Feedback colors for correct/wrong answers */
+body.correct {
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+body.wrong {
+    background-color: rgba(227, 6, 19, 0.1);
+}
+
+/* Game 2 Mobile Responsive */
+@media (max-width: 600px) {
+    .button-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .symptom-text {
+        font-size: 1.3rem;
+    }
+
+    .header-info {
+        top: 15px;
+        right: 15px;
+        gap: 15px;
+        font-size: 1rem;
+        padding: 10px 15px;
     }
 }
