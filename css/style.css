@@ -792,9 +792,10 @@ h1 {
 
 /* Restart button during gameplay */
 .restart-btn.game-restart {
-    display: block;
-    margin: 30px auto 0 auto;
-    padding: 12px 35px;
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    padding: 12px 95px;
     background: var(--accent-red);
     color: white;
     border: none;
@@ -805,6 +806,7 @@ h1 {
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.2s ease;
+    z-index: 100;
 }
 
 .restart-btn.game-restart:hover {
@@ -891,5 +893,10 @@ body.wrong {
         gap: 15px;
         font-size: 1rem;
         padding: 10px 15px;
+    }
+
+    .restart-btn.game-restart {
+        top: 65px;
+        right: 15px;
     }
 }

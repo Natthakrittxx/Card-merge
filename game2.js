@@ -27,6 +27,7 @@ const buttons = document.querySelectorAll('.answer-btn');
 const gameSection = document.getElementById('gameSection');
 const gameOverSection = document.getElementById('gameOverSection');
 const headerInfo = document.getElementById('headerInfo');
+const gameRestartBtn = document.getElementById('gameRestartBtn');
 const finalScoreEl = document.getElementById('finalScore');
 
 // --- LOGIC ---
@@ -63,6 +64,7 @@ function updateDisplay() {
 function endGame() {
     gameSection.classList.add('hidden');
     headerInfo.classList.add('hidden');
+    gameRestartBtn.classList.add('hidden');
     gameOverSection.style.display = 'flex';
     finalScoreEl.textContent = score;
 }
@@ -75,6 +77,7 @@ function resetGame() {
     gameOverSection.style.display = 'none';
     gameSection.classList.remove('hidden');
     headerInfo.classList.remove('hidden');
+    gameRestartBtn.classList.remove('hidden');
 
     currentRound = generateRound();
     updateDisplay();
