@@ -5,7 +5,7 @@ const GAME_DATA = {
     "SWEEP® Endodontics Treatment": ["Root Canal Infection", "Deep Tooth Pain", "Nerve Inflammation"],
     "TwinLight® Periodontal Treatment": ["Bleeding Gums", "Swollen Gums", "Gum Disease"],
     "Facial Aesthetics Treatment": ["Wrinkles", "Sagging Skin", "Crow's Feet"],
-    "TwinLight® Peri-implantisis": ["Missing Tooth", "Needs Dental Implant", "Broken Tooth Replacement"],
+    "TwinLight® Peri-implantisis": ["Removal of Bacteria Biofilm Implant"],
     "Oral Surgery": ["Wisdom Tooth Removal", "Impacted Tooth", "Bone Extraction"],
     "Desensitization": ["Sensitive to Cold Water", "Pain from Ice Cream", "Exposed Roots"],
     "Photobiomudulation and Pain Management (PBM)": ["Chronic Pain", "Muscle Soreness", "TMJ disorder"]
@@ -19,7 +19,7 @@ let currentRound = null;
 let isProcessing = false;
 
 // --- DOM ELEMENTS ---
-const scoreEl = document.getElementById('score');
+const scoreEl = document.getElementById('score');   
 const qCountEl = document.getElementById('qCount');
 const symptomEl = document.getElementById('symptom');
 const buttons = document.querySelectorAll('.answer-btn');
