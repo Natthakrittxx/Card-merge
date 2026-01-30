@@ -8,11 +8,11 @@ const GAME_DATA = {
     "TwinLight® Peri-implantisis": ["Missing Tooth", "Needs Dental Implant", "Broken Tooth Replacement"],
     "Oral Surgery": ["Wisdom Tooth Removal", "Impacted Tooth", "Bone Extraction"],
     "Desensitization": ["Sensitive to Cold Water", "Pain from Ice Cream", "Exposed Roots"],
-    "Photobiomudulation and Pain Management (PBM)": ["Chronic Pain", "Muscle Soreness", "Inflammation Reduction"]
+    "Photobiomudulation and Pain Management (PBM)": ["Chronic Pain", "Muscle Soreness", "TMJ disorder"]
 };
 
 // --- STATE ---
-const MAX_QUESTIONS = 10;
+const MAX_QUESTIONS = 5;
 let score = 0;
 let questionCount = 0;
 let currentRound = null;

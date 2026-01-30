@@ -898,5 +898,7 @@ body.wrong {
     .restart-btn.game-restart {
         top: 65px;
         right: 15px;
+        padding: 10px 20px;
+        font-size: 0.85rem;
     }
 }
